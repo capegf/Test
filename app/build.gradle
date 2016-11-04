@@ -16,7 +16,7 @@ android {
         release {
 //            Properties signingProperties = new Properties()
 //            signingProperties.load(rootProject.file("signing.properties").newDataInputStream())
-            storeFile  file(System.getEnv('FLOW_CERTIFICATE_FILE'))
+            storeFile  file(System.getenv( '\' '+"FLOW_CERTIFICATE_FILE" + '\''))
             storePassword System.getenv("FLOW_KEYSTORE_PASS")
             keyAlias System.getenv("FLOW_ALIAS_NAME")
             keyPassword System.getenv("FLOW_ALIAS_PASS")
