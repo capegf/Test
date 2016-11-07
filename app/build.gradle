@@ -14,12 +14,14 @@ android {
 
     signingConfigs {
         release {
-            Properties signingProperties = new Properties()
-            signingProperties.load(rootProject.file("local.properties").newDataInputStream())
-            storeFile rootProject.file(signingProperties.get("storeFile")) ?: rootProject.file(System.getenv("FLOW_CERTIFICATE_FILE"))
-            storePassword signingProperties.get("storePassword") ?: System.getenv("FLOW_KEYSTORE_PASS") ?: System.console()?.readLine("\nStore password:")
-            keyAlias signingProperties.get("keyAlias") ?: System.getenv("FLOW_ALIAS_NAME") ?: System.console()?.readLine("\nKey alias:")
-            keyPassword signingProperties.get("keyPassword") ?: System.getenv("FLOW_ALIAS_PASS") ?: System.console()?.readLine("\nKey password:")
+            Properties properties = new Properties()
+            if(rootProject.file("local.properties").exists()) {
+                properties.load(rootProject.file("local.properties").newDataInputStream())
+            }
+            storeFile rootProject.file(properties.get("storeFile")) ?: rootProject.file(System.getenv("FLOW_CERTIFICATE_FILE"))
+            storePassword properties.get("storePassword") ?: System.getenv("FLOW_KEYSTORE_PASS") ?: System.console()?.readLine("\nStore password:")
+            keyAlias properties.get("keyAlias") ?: System.getenv("FLOW_ALIAS_NAME") ?: System.console()?.readLine("\nKey alias:")
+            keyPassword properties.get("keyPassword") ?: System.getenv("FLOW_ALIAS_PASS") ?: System.console()?.readLine("\nKey password:")
         }
     }
 
